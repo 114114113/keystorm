@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鍵字風暴 KeyStorm - Neon Synthwave Edition</title>
+    <title>鍵字風暴 KeyStorm - Extreme Cyberpunk Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,13 +11,14 @@
             theme: {
                 extend: {
                     colors: {
-                        'cyber-black': '#040209',
-                        'cyber-card': 'rgba(13, 10, 29, 0.85)',
+                        'cyber-black': '#030108',
+                        'cyber-card': 'rgba(12, 8, 28, 0.88)',
                         'neon-cyan': '#00f3ff',
                         'neon-magenta': '#ff00ff',
                         'neon-violet': '#b026ff',
                         'neon-yellow': '#ffe600',
-                        'danger-red': '#ff0055'
+                        'danger-red': '#ff0055',
+                        'apex-gold': '#ffaa00'
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -27,7 +28,7 @@
             }
         }
     </script>
-    <!-- Custom Synthwave & Neon Glow Styles -->
+    <!-- Custom Synthwave & Ultra Neon Styles -->
     <style>
         body {
             background-color: #030108;
@@ -54,11 +55,11 @@
             left: -50%;
             top: -20%;
             background-image: 
-                linear-gradient(to right, rgba(0, 243, 255, 0.22) 2px, transparent 2px),
-                linear-gradient(to bottom, rgba(255, 0, 255, 0.22) 2px, transparent 2px);
+                linear-gradient(to right, rgba(0, 243, 255, 0.25) 2px, transparent 2px),
+                linear-gradient(to bottom, rgba(255, 0, 255, 0.25) 2px, transparent 2px);
             background-size: 50px 50px;
             transform: rotateX(72deg);
-            animation: gridMove 2.5s linear infinite;
+            animation: gridMove 1.8s linear infinite;
             transform-origin: center center;
         }
 
@@ -70,10 +71,10 @@
         /* Neon Horizon Line */
         .horizon-glow {
             position: absolute;
-            top: 25%;
+            top: 22%;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, #ff00ff 20%, #00f3ff 50%, #ff00ff 80%, transparent);
             box-shadow: 0 0 25px #00f3ff, 0 0 50px #ff00ff;
             z-index: 2;
@@ -104,7 +105,7 @@
 
         .glow-box-card {
             box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.8), 
+                0 15px 40px rgba(0, 0, 0, 0.85), 
                 0 0 35px rgba(255, 0, 255, 0.4),
                 inset 0 0 20px rgba(0, 243, 255, 0.2);
             border: 1px solid rgba(255, 0, 255, 0.5);
@@ -118,43 +119,51 @@
 
         .defense-line.flash-red {
             background: linear-gradient(90deg, transparent 0%, #ff0055 20%, #ffe600 50%, #ff0055 80%, transparent 100%);
-            box-shadow: 0 0 40px #ff0055, 0 0 70px #ffe600;
+            box-shadow: 0 0 45px #ff0055, 0 0 80px #ffe600;
         }
 
         /* Bottom Turret Cannon */
         .turret-cannon {
             width: 0;
             height: 0;
-            border-left: 26px solid transparent;
-            border-right: 26px solid transparent;
-            border-bottom: 46px solid #00f3ff;
-            filter: drop-shadow(0px 0px 20px #00f3ff) drop-shadow(0px 0px 35px #ff00ff);
+            border-left: 28px solid transparent;
+            border-right: 28px solid transparent;
+            border-bottom: 50px solid #00f3ff;
+            filter: drop-shadow(0px 0px 20px #00f3ff) drop-shadow(0px 0px 40px #ff00ff);
             position: relative;
         }
 
         .turret-inner {
             position: absolute;
-            top: 16px;
-            left: -10px;
+            top: 18px;
+            left: -11px;
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 20px solid #ff00ff;
+            border-left: 11px solid transparent;
+            border-right: 11px solid transparent;
+            border-bottom: 22px solid #ff00ff;
         }
 
         /* Neon Buttons State */
         .btn-neon-active {
-            background: rgba(0, 243, 255, 0.22);
+            background: rgba(0, 243, 255, 0.25);
             border-color: #00f3ff;
             color: #00f3ff;
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.7), inset 0 0 12px rgba(0, 243, 255, 0.5);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8), inset 0 0 12px rgba(0, 243, 255, 0.6);
             text-shadow: 0 0 10px #00f3ff;
         }
 
+        .btn-neon-apex-active {
+            background: rgba(255, 170, 0, 0.25);
+            border-color: #ffaa00;
+            color: #ffaa00;
+            box-shadow: 0 0 25px rgba(255, 170, 0, 0.8), inset 0 0 12px rgba(255, 170, 0, 0.6);
+            text-shadow: 0 0 10px #ffaa00;
+        }
+
         .btn-neon-inactive {
-            background: rgba(18, 14, 38, 0.7);
-            border-color: rgba(255, 0, 255, 0.3);
+            background: rgba(18, 14, 38, 0.75);
+            border-color: rgba(255, 0, 255, 0.35);
             color: #94a3b8;
         }
 
@@ -170,8 +179,8 @@
                 to bottom,
                 rgba(255,255,255,0),
                 rgba(255,255,255,0) 50%,
-                rgba(0, 0, 0, 0.3) 50%,
-                rgba(0, 0, 0, 0.3)
+                rgba(0, 0, 0, 0.35) 50%,
+                rgba(0, 0, 0, 0.35)
             );
             background-size: 100% 4px;
             pointer-events: none;
@@ -193,13 +202,13 @@
     <header class="w-full max-w-6xl px-6 pt-5 flex justify-between items-start z-10">
         <div>
             <div class="flex items-baseline gap-3">
-                <span class="text-xs px-2.5 py-0.5 rounded bg-cyan-500/20 border border-cyan-400 text-neon-cyan font-mono font-bold tracking-widest uppercase shadow-[0_0_12px_rgba(0,243,255,0.5)]">NEON SYNTHWAVE</span>
+                <span class="text-xs px-2.5 py-0.5 rounded bg-cyan-500/20 border border-cyan-400 text-neon-cyan font-mono font-bold tracking-widest uppercase shadow-[0_0_12px_rgba(0,243,255,0.5)]">HIGH-SPEED TYPING DEFENSE</span>
                 <h1 class="text-4xl font-black text-white tracking-wider glow-title uppercase">鍵字風暴 <span class="text-2xl font-light text-cyan-300 ml-1">KeyStorm</span></h1>
             </div>
-            <p class="text-xs text-cyan-200/90 mt-1.5 tracking-wide glow-subtext">極速指尖戰防陣線 — 擊毀掉落字母，捍衛霓虹基地。</p>
+            <p class="text-xs text-cyan-200/90 mt-1.5 tracking-wide glow-subtext">極速指尖戰防陣線 — 高速反應防衛，捍衛霓虹基地。</p>
         </div>
         <div class="text-right flex flex-col items-end">
-            <span class="text-xs text-pink-400 font-mono tracking-wider glow-subtext">CYBERTYPING DEFENSE</span>
+            <span class="text-xs text-pink-400 font-mono tracking-wider glow-subtext">HARDCORE EDITION</span>
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping mt-1.5 shadow-[0_0_12px_#00f3ff]"></span>
         </div>
     </header>
@@ -236,7 +245,7 @@
 
             <!-- Bottom Turret & Defense Line -->
             <div class="absolute bottom-0 left-0 w-full flex flex-col items-center pointer-events-none z-10">
-                <div id="defenseLine" class="w-full h-2 defense-line transition-colors duration-200"></div>
+                <div id="defenseLine" class="w-full h-2.5 defense-line transition-colors duration-200"></div>
                 <div class="turret-cannon -mt-1">
                     <div class="turret-inner"></div>
                 </div>
@@ -244,27 +253,31 @@
 
             <!-- Start Modal Overlay -->
             <div id="modalOverlay" class="absolute inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 z-20">
-                <div class="w-full max-w-lg bg-cyber-card glow-box-card rounded-2xl p-7 text-center border border-pink-500/50">
-                    <div class="inline-block px-3.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-400 text-xs text-neon-cyan font-mono mb-3 shadow-[0_0_12px_rgba(0,243,255,0.4)]">SYNTHWAVE DEFENSE SYSTEM</div>
-                    <h2 class="text-3xl font-black text-white mb-3 tracking-wide glow-title">選擇模式並起飛</h2>
+                <div class="w-full max-w-xl bg-cyber-card glow-box-card rounded-2xl p-7 text-center border border-pink-500/50">
+                    <div class="inline-block px-3.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-400 text-xs text-neon-cyan font-mono mb-3 shadow-[0_0_12px_rgba(0,243,255,0.4)]">EXTREME TYPING CHALLENGE</div>
+                    <h2 class="text-3xl font-black text-white mb-3 tracking-wide glow-title">選擇作戰難度</h2>
                     
-                    <p class="text-xs text-cyan-100/80 leading-relaxed mb-6 px-2">
-                        輸入與掉落字母相同的按鍵。A 與 a 視為相同；若有重複字母，會優先擊中最低的一個。
+                    <p class="text-xs text-cyan-100/80 leading-relaxed mb-5 px-2">
+                        字母將會以極高速度降落！快速按下對應鍵盤 A-Z 進行打擊。重複字母優先瞄準最底部的目標。
                     </p>
 
-                    <!-- Difficulty Toggle -->
-                    <div class="grid grid-cols-3 gap-3 mb-6">
-                        <button id="btnEasy" onclick="setDifficulty('easy')" class="btn-neon-active py-3.5 px-2 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-sm tracking-wide">新手</span>
-                            <span class="text-[10px] opacity-80 mt-1 font-mono">較少、較慢</span>
+                    <!-- Difficulty Toggle (4 Options) -->
+                    <div class="grid grid-cols-4 gap-2.5 mb-6">
+                        <button id="btnEasy" onclick="setDifficulty('easy')" class="btn-neon-active py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                            <span class="font-black text-xs tracking-wide">新手</span>
+                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 2.2 | 中等</span>
                         </button>
-                        <button id="btnMedium" onclick="setDifficulty('medium')" class="btn-neon-inactive py-3.5 px-2 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-sm tracking-wide">進階</span>
-                            <span class="text-[10px] opacity-80 mt-1 font-mono">較多、較快</span>
+                        <button id="btnMedium" onclick="setDifficulty('medium')" class="btn-neon-inactive py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                            <span class="font-black text-xs tracking-wide">進階</span>
+                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 3.5 | 快速</span>
                         </button>
-                        <button id="btnHard" onclick="setDifficulty('hard')" class="btn-neon-inactive py-3.5 px-2 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-sm tracking-wide">大師</span>
-                            <span class="text-[10px] opacity-80 mt-1 font-mono">極速高壓</span>
+                        <button id="btnHard" onclick="setDifficulty('hard')" class="btn-neon-inactive py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                            <span class="font-black text-xs tracking-wide">大師</span>
+                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 5.2 | 極速</span>
+                        </button>
+                        <button id="btnApex" onclick="setDifficulty('apex')" class="btn-neon-inactive py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                            <span class="font-black text-xs tracking-wide text-apex-gold">極限風暴</span>
+                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 7.0 | 暴風</span>
                         </button>
                     </div>
 
@@ -281,11 +294,11 @@
 
             <!-- Game Over Screen with Difficulty Selection on Restart -->
             <div id="gameOverOverlay" class="hidden absolute inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 z-20">
-                <div class="w-full max-w-lg bg-cyber-card glow-box-card rounded-2xl p-7 text-center border border-pink-500/50">
-                    <div class="text-xs text-danger-red tracking-widest font-mono mb-2 uppercase drop-shadow-[0_0_8px_#ff0055]">DEFENSE SYSTEM COLLAPSED</div>
-                    <h2 class="text-3xl font-black text-white mb-2 tracking-wide glow-title">遊戲結束</h2>
+                <div class="w-full max-w-xl bg-cyber-card glow-box-card rounded-2xl p-7 text-center border border-pink-500/50">
+                    <div class="text-xs text-danger-red tracking-widest font-mono mb-2 uppercase drop-shadow-[0_0_8px_#ff0055]">DEFENSE LINE BREACHED</div>
+                    <h2 class="text-3xl font-black text-white mb-2 tracking-wide glow-title">防線淪陷 — 遊戲結束</h2>
                     
-                    <div class="my-5 py-4 bg-black/60 rounded-xl border border-purple-500/30 flex justify-around shadow-[inset_0_0_15px_rgba(255,0,255,0.15)]">
+                    <div class="my-5 py-3.5 bg-black/60 rounded-xl border border-purple-500/30 flex justify-around shadow-[inset_0_0_15px_rgba(255,0,255,0.15)]">
                         <div>
                             <div class="text-xs text-cyan-300/80 mb-1">本次得分</div>
                             <div id="finalScore" class="text-3xl font-black text-neon-cyan font-mono drop-shadow-[0_0_12px_#00f3ff]">0</div>
@@ -297,20 +310,24 @@
                     </div>
 
                     <!-- Select Difficulty for Next Round -->
-                    <div class="text-xs text-neon-cyan font-mono tracking-wider mb-2.5 uppercase drop-shadow-[0_0_5px_#00f3ff]">調整下一局作戰難度</div>
+                    <div class="text-xs text-neon-cyan font-mono tracking-wider mb-2.5 uppercase drop-shadow-[0_0_5px_#00f3ff]">選擇下一局作戰難度</div>
 
-                    <div class="grid grid-cols-3 gap-3 mb-6">
-                        <button id="btnEasyGameOver" onclick="setDifficulty('easy')" class="btn-neon-active py-2.5 px-2 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                    <div class="grid grid-cols-4 gap-2.5 mb-6">
+                        <button id="btnEasyGameOver" onclick="setDifficulty('easy')" class="btn-neon-active py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
                             <span class="font-black text-xs">新手</span>
-                            <span class="text-[9px] opacity-80 font-mono">較少、較慢</span>
+                            <span class="text-[9px] opacity-80 font-mono">速 2.2</span>
                         </button>
-                        <button id="btnMediumGameOver" onclick="setDifficulty('medium')" class="btn-neon-inactive py-2.5 px-2 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                        <button id="btnMediumGameOver" onclick="setDifficulty('medium')" class="btn-neon-inactive py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
                             <span class="font-black text-xs">進階</span>
-                            <span class="text-[9px] opacity-80 font-mono">較多、較快</span>
+                            <span class="text-[9px] opacity-80 font-mono">速 3.5</span>
                         </button>
-                        <button id="btnHardGameOver" onclick="setDifficulty('hard')" class="btn-neon-inactive py-2.5 px-2 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                        <button id="btnHardGameOver" onclick="setDifficulty('hard')" class="btn-neon-inactive py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
                             <span class="font-black text-xs">大師</span>
-                            <span class="text-[9px] opacity-80 font-mono">極速高壓</span>
+                            <span class="text-[9px] opacity-80 font-mono">速 5.2</span>
+                        </button>
+                        <button id="btnApexGameOver" onclick="setDifficulty('apex')" class="btn-neon-inactive py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
+                            <span class="font-black text-xs text-apex-gold">極限</span>
+                            <span class="text-[9px] opacity-80 font-mono">速 7.0</span>
                         </button>
                     </div>
 
@@ -325,7 +342,7 @@
 
     <!-- Footer -->
     <footer class="w-full text-center py-2.5 text-[11px] text-cyan-300/80 z-10 font-mono tracking-wider glow-subtext">
-        鍵盤按鍵輸入 A-Z 即可發射砲擊 | KEYSTORM SYNTHWAVE EDITION
+        鍵盤按鍵輸入 A-Z 即可發射砲擊 | KEYSTORM EXTREME SYNTHWAVE
     </footer>
 
     <!-- Game Engine Script -->
@@ -348,29 +365,10 @@
                 const gain = this.ctx.createGain();
                 
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(1200, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(160, this.ctx.currentTime + 0.12);
+                osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(200, this.ctx.currentTime + 0.1);
 
                 gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.12);
-            }
-
-            playHit() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(450, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(950, this.ctx.currentTime + 0.1);
-
-                gain.gain.setValueAtTime(0.45, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
 
                 osc.connect(gain);
@@ -380,23 +378,42 @@
                 osc.stop(this.ctx.currentTime + 0.1);
             }
 
+            playHit() {
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(500, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1100, this.ctx.currentTime + 0.08);
+
+                gain.gain.setValueAtTime(0.45, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.08);
+            }
+
             playMiss() {
                 if (!this.ctx) return;
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
 
                 osc.type = 'square';
-                osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-                osc.frequency.setValueAtTime(90, this.ctx.currentTime + 0.14);
+                osc.frequency.setValueAtTime(240, this.ctx.currentTime);
+                osc.frequency.setValueAtTime(100, this.ctx.currentTime + 0.15);
 
-                gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.28);
+                gain.gain.setValueAtTime(0.4, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
 
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
 
                 osc.start();
-                osc.stop(this.ctx.currentTime + 0.28);
+                osc.stop(this.ctx.currentTime + 0.3);
             }
         }
 
@@ -420,8 +437,8 @@
         let particles = [];
 
         let lastSpawnTime = 0;
-        let spawnInterval = 1600;
-        let baseSpeed = 1.2;
+        let spawnInterval = 1000;
+        let baseSpeed = 2.2;
 
         function resizeCanvas() {
             const rect = canvas.parentElement.getBoundingClientRect();
@@ -441,18 +458,24 @@
             const btnEasy = document.getElementById('btnEasy');
             const btnMedium = document.getElementById('btnMedium');
             const btnHard = document.getElementById('btnHard');
+            const btnApex = document.getElementById('btnApex');
 
             const btnEasyGO = document.getElementById('btnEasyGameOver');
             const btnMediumGO = document.getElementById('btnMediumGameOver');
             const btnHardGO = document.getElementById('btnHardGameOver');
+            const btnApexGO = document.getElementById('btnApexGameOver');
 
-            [btnEasy, btnMedium, btnHard, btnEasyGO, btnMediumGO, btnHardGO].forEach(btn => {
-                if (btn) btn.className = btn.className.replace('btn-neon-active', 'btn-neon-inactive');
+            const allBtns = [btnEasy, btnMedium, btnHard, btnApex, btnEasyGO, btnMediumGO, btnHardGO, btnApexGO];
+            allBtns.forEach(btn => {
+                if (btn) {
+                    btn.className = btn.className.replace('btn-neon-active', 'btn-neon-inactive').replace('btn-neon-apex-active', 'btn-neon-inactive');
+                }
             });
 
-            const activate = (b1, b2) => {
-                if (b1) b1.className = b1.className.replace('btn-neon-inactive', 'btn-neon-active');
-                if (b2) b2.className = b2.className.replace('btn-neon-inactive', 'btn-neon-active');
+            const activate = (b1, b2, isApex = false) => {
+                const cls = isApex ? 'btn-neon-apex-active' : 'btn-neon-active';
+                if (b1) b1.className = b1.className.replace('btn-neon-inactive', cls);
+                if (b2) b2.className = b2.className.replace('btn-neon-inactive', cls);
             };
 
             if (diff === 'easy') {
@@ -463,10 +486,14 @@
                 activate(btnMedium, btnMediumGO);
                 document.getElementById('diffDisplay').innerText = 'LV.2';
                 document.getElementById('diffNameDisplay').innerText = '進階模式';
-            } else {
+            } else if (diff === 'hard') {
                 activate(btnHard, btnHardGO);
                 document.getElementById('diffDisplay').innerText = 'LV.3';
                 document.getElementById('diffNameDisplay').innerText = '大師模式';
+            } else {
+                activate(btnApex, btnApexGO, true);
+                document.getElementById('diffDisplay').innerText = 'EX.4';
+                document.getElementById('diffNameDisplay').innerText = '極限風暴';
             }
         }
 
@@ -476,11 +503,10 @@
                 this.char = char;
                 this.x = x;
                 this.y = -40;
-                // ENLARGED: Radius increased to 34px for prominent visibility
-                this.radius = 34;
+                this.radius = 36; // Large high-contrast circle
                 this.speed = speed;
                 
-                const hues = ['#00f3ff', '#ff00ff', '#ffe600', '#00ff88'];
+                const hues = ['#00f3ff', '#ff00ff', '#ffe600', '#00ff88', '#ffaa00'];
                 this.hue = hues[Math.floor(Math.random() * hues.length)];
             }
 
@@ -494,7 +520,7 @@
                 // Outer Heavy Glow Aura
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(8, 4, 24, 0.92)';
+                ctx.fillStyle = 'rgba(6, 3, 20, 0.92)';
                 ctx.strokeStyle = this.hue;
                 ctx.lineWidth = 3.5;
                 ctx.shadowColor = this.hue;
@@ -505,7 +531,7 @@
                 // Inner Bright Accent Circle
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius - 6, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
                 ctx.lineWidth = 1.5;
                 ctx.stroke();
 
@@ -518,7 +544,7 @@
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.strokeStyle = '#000000';
-                ctx.lineWidth = 4;
+                ctx.lineWidth = 4.5;
                 ctx.strokeText(this.char, this.x, this.y + 1);
 
                 // Bright Fill Text
@@ -538,7 +564,7 @@
                 this.targetY = targetY;
                 this.targetLetter = targetLetter;
                 this.progress = 0;
-                this.speed = 0.22;
+                this.speed = 0.35; // Fast laser shot speed
             }
 
             update() {
@@ -556,7 +582,7 @@
                 ctx.moveTo(this.startX, this.startY);
                 ctx.lineTo(currentX, currentY);
                 ctx.strokeStyle = '#00f3ff';
-                ctx.lineWidth = 7;
+                ctx.lineWidth = 8;
                 ctx.shadowColor = '#ff00ff';
                 ctx.shadowBlur = 30;
                 ctx.stroke();
@@ -566,12 +592,12 @@
                 ctx.moveTo(this.startX, this.startY);
                 ctx.lineTo(currentX, currentY);
                 ctx.strokeStyle = '#ffffff';
-                ctx.lineWidth = 2.5;
+                ctx.lineWidth = 3;
                 ctx.stroke();
 
                 // Laser Head Tip
                 ctx.beginPath();
-                ctx.arc(currentX, currentY, 7, 0, Math.PI * 2);
+                ctx.arc(currentX, currentY, 8, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffffff';
                 ctx.shadowColor = '#00f3ff';
                 ctx.shadowBlur = 20;
@@ -586,18 +612,18 @@
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.vx = (Math.random() - 0.5) * 12;
-                this.vy = (Math.random() - 0.5) * 12;
+                this.vx = (Math.random() - 0.5) * 14;
+                this.vy = (Math.random() - 0.5) * 14;
                 this.radius = Math.random() * 5 + 2;
                 this.alpha = 1;
-                const colors = ['#00f3ff', '#ff00ff', '#ffe600', '#ffffff'];
+                const colors = ['#00f3ff', '#ff00ff', '#ffe600', '#ffffff', '#ffaa00'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.alpha -= 0.03;
+                this.alpha -= 0.035;
             }
 
             draw() {
@@ -613,19 +639,16 @@
             }
         }
 
-        // Spawn Letter with Safe Screen Padding
+        // Spawn Letter with Safe Screen Padding & Speed Variation
         function spawnLetter() {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             const char = chars.charAt(Math.floor(Math.random() * chars.length));
-            const padding = 60;
+            const padding = 65;
             const x = Math.random() * (canvas.width - padding * 2) + padding;
             
-            let speed = baseSpeed + Math.random() * 0.4;
-            if (selectedDifficulty === 'medium') {
-                speed *= 1.45;
-            } else if (selectedDifficulty === 'hard') {
-                speed *= 1.95;
-            }
+            // Dynamic acceleration based on current score
+            const scoreSpeedBoost = Math.min(score * 0.03, 2.5);
+            let speed = baseSpeed + scoreSpeedBoost + Math.random() * 0.6;
 
             letters.push(new Letter(char, x, speed));
         }
@@ -639,7 +662,7 @@
         }
 
         function createExplosion(x, y) {
-            for (let i = 0; i < 28; i++) {
+            for (let i = 0; i < 30; i++) {
                 particles.push(new Particle(x, y));
             }
         }
@@ -650,8 +673,10 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Spawn Letter Control
-            if (timestamp - lastSpawnTime > spawnInterval) {
+            // Dynamic Spawn Rate Scaling
+            const currentInterval = Math.max(spawnInterval - Math.floor(score * 8), 180);
+
+            if (timestamp - lastSpawnTime > currentInterval) {
                 spawnLetter();
                 lastSpawnTime = timestamp;
             }
@@ -741,15 +766,20 @@
         function startGame() {
             audioFX.init();
 
+            // High Difficulty Baseline Tuning
             if (selectedDifficulty === 'easy') {
-                spawnInterval = 1500;
-                baseSpeed = 1.1;
+                spawnInterval = 1000;
+                baseSpeed = 2.2;
             } else if (selectedDifficulty === 'medium') {
-                spawnInterval = 1100;
-                baseSpeed = 1.6;
+                spawnInterval = 600;
+                baseSpeed = 3.5;
+            } else if (selectedDifficulty === 'hard') {
+                spawnInterval = 380;
+                baseSpeed = 5.2;
             } else {
-                spawnInterval = 750;
-                baseSpeed = 2.3;
+                // APEX / EXTREME MODE
+                spawnInterval = 220;
+                baseSpeed = 7.0;
             }
 
             score = 0;
