@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>鍵字風暴 KeyStorm - 極速指尖戰防陣線</title>
+  <title>鍵字風暴 KeyStorm - 高對比極速版</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;900&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -16,7 +16,7 @@
     }
 
     body {
-      background-color: #03030c;
+      background-color: #020208;
       color: #ffffff;
       font-family: 'Noto Sans TC', 'Orbitron', sans-serif;
       min-height: 100vh;
@@ -36,8 +36,8 @@
       width: 100%;
       height: 100%;
       background: 
-        linear-gradient(180deg, rgba(3, 3, 12, 0.9) 0%, rgba(12, 5, 29, 0.7) 60%, rgba(255, 0, 128, 0.15) 100%),
-        radial-gradient(circle at 50% 30%, rgba(0, 243, 255, 0.12) 0%, transparent 70%);
+        linear-gradient(180deg, rgba(2, 2, 8, 0.95) 0%, rgba(10, 4, 25, 0.8) 60%, rgba(255, 0, 128, 0.12) 100%),
+        radial-gradient(circle at 50% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
       z-index: 1;
     }
 
@@ -48,8 +48,8 @@
       height: 45vh;
       left: -50%;
       background-image: 
-        linear-gradient(to right, rgba(0, 243, 255, 0.25) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 0, 127, 0.3) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 243, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 0, 127, 0.25) 1px, transparent 1px);
       background-size: 50px 30px;
       transform: perspective(300px) rotateX(60deg);
       animation: gridMove 2s linear infinite;
@@ -63,19 +63,19 @@
       100% { background-position: 0 30px; }
     }
 
-    /* 主容器 */
+    /* 主遊戲容器 */
     .game-container {
       position: relative;
       width: 95vw;
       max-width: 1100px;
       height: 88vh;
       max-height: 820px;
-      background: rgba(8, 10, 26, 0.75);
-      border: 2px solid rgba(0, 243, 255, 0.4);
+      background: rgba(6, 8, 20, 0.88);
+      border: 2px solid rgba(0, 243, 255, 0.5);
       border-radius: 16px;
       box-shadow: 
-        0 0 30px rgba(0, 243, 255, 0.25),
-        inset 0 0 25px rgba(255, 0, 127, 0.15);
+        0 0 35px rgba(0, 243, 255, 0.3),
+        inset 0 0 30px rgba(255, 0, 127, 0.2);
       backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column;
@@ -83,21 +83,16 @@
       overflow: hidden;
     }
 
-    /* 頂部標題與狀態列 */
+    /* 頂部資訊欄 */
     .header-bar {
       padding: 16px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(4, 6, 18, 0.85);
-      border-bottom: 2px solid rgba(0, 243, 255, 0.3);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      background: rgba(2, 4, 14, 0.95);
+      border-bottom: 2px solid rgba(0, 243, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
       z-index: 20;
-    }
-
-    .brand-title {
-      display: flex;
-      flex-direction: column;
     }
 
     .brand-title h1 {
@@ -113,7 +108,7 @@
 
     .brand-title p {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.7);
       letter-spacing: 1px;
       margin-top: 2px;
     }
@@ -134,26 +129,27 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       margin-bottom: 4px;
+      font-weight: 700;
       text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
     }
 
     .stat-value {
       font-family: 'Orbitron', monospace;
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 900;
       color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
     }
 
     .stat-value.danger {
       color: #ff0055;
-      text-shadow: 0 0 12px rgba(255, 0, 85, 0.9);
-      animation: pulseDanger 1s infinite alternate;
+      text-shadow: 0 0 14px rgba(255, 0, 85, 1);
+      animation: pulseDanger 0.8s infinite alternate;
     }
 
     @keyframes pulseDanger {
       from { opacity: 0.8; transform: scale(1); }
-      to { opacity: 1; transform: scale(1.08); }
+      to { opacity: 1; transform: scale(1.1); }
     }
 
     /* 遊戲畫布 */
@@ -177,7 +173,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(3, 4, 12, 0.8);
+      background: rgba(2, 3, 10, 0.85);
       backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
@@ -192,15 +188,15 @@
     }
 
     .modal-card {
-      width: 420px;
-      background: rgba(12, 16, 38, 0.92);
+      width: 440px;
+      background: rgba(10, 14, 32, 0.95);
       border: 2px solid #00f3ff;
       border-radius: 20px;
       padding: 36px 30px;
       text-align: center;
       box-shadow: 
-        0 0 40px rgba(0, 243, 255, 0.4),
-        inset 0 0 20px rgba(255, 0, 127, 0.2);
+        0 0 45px rgba(0, 243, 255, 0.4),
+        inset 0 0 20px rgba(255, 0, 127, 0.25);
       animation: modalSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -210,11 +206,11 @@
     }
 
     .modal-card h2 {
-      font-size: 26px;
+      font-size: 28px;
       color: #fff;
       letter-spacing: 2px;
       margin-bottom: 12px;
-      text-shadow: 0 0 12px rgba(0, 243, 255, 0.8);
+      text-shadow: 0 0 15px rgba(0, 243, 255, 0.9);
     }
 
     .modal-card p.subtitle {
@@ -245,18 +241,13 @@
       box-shadow: 0 0 35px rgba(0, 243, 255, 0.8);
     }
 
-    .btn-start:active {
-      transform: translateY(1px);
-    }
-
-    /* 頁腳提示 */
     .footer-tip {
       position: absolute;
       bottom: 12px;
       width: 100%;
       text-align: center;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
       letter-spacing: 1px;
       z-index: 15;
       pointer-events: none;
@@ -272,8 +263,8 @@
     <!-- 頂部資訊欄 -->
     <div class="header-bar">
       <div class="brand-title">
-        <h1>鍵字風暴 KEYSTORM</h1>
-        <p>看見字母，立即擊鍵，守住你的防線。</p>
+        <h1>KEYSTORM 風暴打字</h1>
+        <p>高對比極速識別防線</p>
       </div>
       <div class="stats-board">
         <div class="stat-item">
@@ -291,21 +282,21 @@
       </div>
     </div>
 
-    <!-- 主遊戲畫面 -->
+    <!-- 主遊戲畫布 -->
     <div class="canvas-wrapper">
       <canvas id="gameCanvas"></canvas>
     </div>
 
     <div class="footer-tip">
-      鍵盤直接按 A-Z 鍵即可發射光束清除字母
+      直接按鍵盤 A-Z 鍵發射雷射防衛基地
     </div>
 
-    <!-- 開始與重啟 modal 彈窗 -->
+    <!-- 開始/重開 Modal -->
     <div class="modal-overlay" id="modal-overlay">
       <div class="modal-card">
-        <h2 id="modal-title">鍵字風暴挑戰</h2>
+        <h2 id="modal-title">KEYSTORM 防衛戰</h2>
         <p class="subtitle" id="modal-desc">
-          輸入與掉落字母相同的按鍵。<br>隨得分越高，掉落速度與數量會持續加快！
+          清晰高對比字母標籤。<br>隨分數提升，掉落速度與頻率將持續加速無上限！
         </p>
 
         <button class="btn-start" id="btn-start">開始遊戲</button>
@@ -331,10 +322,10 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(100, this.ctx.currentTime + 0.12);
+        osc.frequency.setValueAtTime(850, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.12);
         
-        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
 
         osc.connect(gain);
@@ -348,10 +339,10 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(600, this.ctx.currentTime + 0.15);
+        osc.frequency.setValueAtTime(320, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(680, this.ctx.currentTime + 0.15);
         
-        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
 
         osc.connect(gain);
@@ -365,10 +356,10 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'square';
-        osc.frequency.setValueAtTime(150, this.ctx.currentTime);
-        osc.frequency.setValueAtTime(80, this.ctx.currentTime + 0.1);
+        osc.frequency.setValueAtTime(160, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(70, this.ctx.currentTime + 0.12);
         
-        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.25);
 
         osc.connect(gain);
@@ -384,7 +375,6 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // UI 元素
     const scoreVal = document.getElementById('score-val');
     const missVal = document.getElementById('miss-val');
     const highVal = document.getElementById('high-val');
@@ -393,23 +383,20 @@
     const modalDesc = document.getElementById('modal-desc');
     const btnStart = document.getElementById('btn-start');
 
-    // 遊戲數據
     let score = 0;
     let misses = 0;
-    let maxMisses = 10;
+    const maxMisses = 10;
     let highScore = localStorage.getItem('keystorm_high') || 0;
     let isPlaying = false;
     let animationFrameId = null;
 
     highVal.textContent = highScore;
 
-    // 物件陣列
     let letters = [];
     let lasers = [];
     let particles = [];
     let lastSpawnTime = 0;
 
-    // Canvas 自適應大小
     function resizeCanvas() {
       const rect = canvas.parentElement.getBoundingClientRect();
       canvas.width = rect.width;
@@ -418,7 +405,6 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // 開始 / 重啟遊戲
     btnStart.addEventListener('click', () => {
       sound.init();
       modalOverlay.classList.add('hidden');
@@ -440,29 +426,29 @@
       missVal.classList.remove('danger');
     }
 
-    // 生成字母（隨分數進行加速度算式）
     function spawnLetter() {
       const char = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-      const radius = 34; // 放大字母氣泡半徑
-      const padding = 60;
+      const radius = 32; // 氣泡標籤半徑
+      const padding = 65;
       const x = padding + Math.random() * (canvas.width - padding * 2);
       
-      // 動態速度算法：初始基礎 1.8，隨分數不斷無上限加速度
+      // 無上限漸進加速算法
       const baseSpeed = 1.8;
-      const speedMultiplier = 1 + (score * 0.045); // 每加 1 分增加 4.5% 速度
-      const speed = (baseSpeed + Math.random() * 0.6) * speedMultiplier;
+      const speedMultiplier = 1 + (score * 0.045); 
+      const speed = (baseSpeed + Math.random() * 0.5) * speedMultiplier;
 
+      const isCyan = Math.random() > 0.5;
       letters.push({
         char: char,
         x: x,
         y: -radius * 2,
         radius: radius,
         speed: speed,
-        color: Math.random() > 0.5 ? '#00f3ff' : '#ff007f'
+        strokeColor: isCyan ? '#00f3ff' : '#ff007f',
+        glowColor: isCyan ? 'rgba(0, 243, 255, 0.8)' : 'rgba(255, 0, 127, 0.8)'
       });
     }
 
-    // 繪製底座與防護線
     function drawBase() {
       const groundY = canvas.height - 40;
       
@@ -477,7 +463,7 @@
       ctx.shadowBlur = 15;
       ctx.stroke();
 
-      // 底座三角形
+      // 底座發射器
       const centerX = canvas.width / 2;
       ctx.beginPath();
       ctx.moveTo(centerX, groundY - 24);
@@ -490,7 +476,6 @@
       ctx.shadowBlur = 20;
       ctx.fill();
 
-      // 中心核
       ctx.beginPath();
       ctx.arc(centerX, groundY - 4, 6, 0, Math.PI * 2);
       ctx.fillStyle = '#ffffff';
@@ -499,7 +484,6 @@
       ctx.restore();
     }
 
-    // 鍵盤輸入事件
     window.addEventListener('keydown', (e) => {
       if (!isPlaying) return;
 
@@ -510,7 +494,6 @@
     });
 
     function handleKeyPress(key) {
-      // 尋找符合字母且 Y 座標最大（最接近底部）的一個
       let targetIndex = -1;
       let maxY = -Infinity;
 
@@ -524,7 +507,6 @@
       if (targetIndex !== -1) {
         const target = letters[targetIndex];
         
-        // 建立雷射
         const cannonX = canvas.width / 2;
         const cannonY = canvas.height - 64;
         lasers.push({
@@ -533,13 +515,11 @@
           x2: target.x,
           y2: target.y,
           alpha: 1,
-          color: target.color
+          color: target.strokeColor
         });
 
-        // 建立爆炸粒子
-        createExplosion(target.x, target.y, target.color);
+        createExplosion(target.x, target.y, target.strokeColor);
 
-        // 移除字母並加分
         letters.splice(targetIndex, 1);
         score += 1;
         scoreVal.textContent = score;
@@ -549,46 +529,43 @@
       }
     }
 
-    // 建立爆炸效果
     function createExplosion(x, y, color) {
-      const count = 16;
+      const count = 18;
       for (let i = 0; i < count; i++) {
         const angle = (Math.PI * 2 / count) * i + Math.random();
-        const speed = 2 + Math.random() * 5;
+        const speed = 2.5 + Math.random() * 5.5;
         particles.push({
           x: x,
           y: y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          radius: 2 + Math.random() * 3,
+          radius: 2.5 + Math.random() * 3,
           alpha: 1,
           color: color
         });
       }
     }
 
-    // 主更新與繪製循環
     function gameLoop(timestamp) {
       if (!isPlaying) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 動態生成字母邏輯（分數越高，產生間隔越短、字母越多）
+      // 動態生成間隔（隨分數提升大幅加快）
       const baseInterval = 1100;
-      const currentInterval = Math.max(160, baseInterval - (score * 18)); // 最快縮短至 160ms 出現一顆
+      const currentInterval = Math.max(160, baseInterval - (score * 18));
 
       if (timestamp - lastSpawnTime > currentInterval) {
         spawnLetter();
         lastSpawnTime = timestamp;
       }
 
-      // 1. 更新與繪製字母
+      // 1. 繪製與更新掉落字母標籤 (極致高對比度清晰處理)
       const groundY = canvas.height - 40;
       for (let i = letters.length - 1; i >= 0; i--) {
         const item = letters[i];
         item.y += item.speed;
 
-        // 檢查是否觸底（過線漏接）
         if (item.y + item.radius >= groundY) {
           misses++;
           missVal.textContent = `${misses} / ${maxMisses}`;
@@ -605,26 +582,36 @@
           continue;
         }
 
-        // 繪製字母氣泡
         ctx.save();
+        
+        // --- 1A. 高對比實心黑紫深色背景底牌 ---
         ctx.beginPath();
         ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(10, 14, 35, 0.85)';
-        ctx.strokeStyle = item.color;
-        ctx.lineWidth = 3;
-        ctx.shadowColor = item.color;
-        ctx.shadowBlur = 18;
+        ctx.fillStyle = '#060612'; // 極深實心背景，防止透光
         ctx.fill();
+
+        // --- 1B. 鮮豔 Neon 光暈外框 ---
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = item.strokeColor;
+        ctx.shadowColor = item.glowColor;
+        ctx.shadowBlur = 18;
         ctx.stroke();
 
-        // 繪製字母文字 (大字體 32px)
-        ctx.font = '900 32px "Orbitron", sans-serif';
-        ctx.fillStyle = '#ffffff';
+        // --- 1C. 超清晰 36px 特粗英文字母 (雙層黑描邊與光芒) ---
+        ctx.font = '900 36px "Orbitron", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.shadowColor = item.color;
-        ctx.shadowBlur = 10;
+
+        // 黑色清晰強描邊
+        ctx.lineWidth = 7;
+        ctx.strokeStyle = '#000000';
+        ctx.shadowBlur = 0; // 關閉文字本體陰影以保持邊緣極致清晰
+        ctx.strokeText(item.char, item.x, item.y + 2);
+
+        // 純白高亮本體
+        ctx.fillStyle = '#ffffff';
         ctx.fillText(item.char, item.x, item.y + 2);
+
         ctx.restore();
       }
 
@@ -676,21 +663,18 @@
       animationFrameId = requestAnimationFrame(gameLoop);
     }
 
-    // 遊戲結束
     function gameOver() {
       isPlaying = false;
       cancelAnimationFrame(animationFrameId);
 
-      // 更新最高分數
       if (score > highScore) {
         highScore = score;
         localStorage.setItem('keystorm_high', highScore);
         highVal.textContent = highScore;
       }
 
-      // 跳出重開畫面
-      modalTitle.textContent = "戰局結束 GAME OVER";
-      modalDesc.innerHTML = `最終得分：<strong style="color:#00f3ff; font-size: 22px;">${score}</strong> 分<br>準備好再次挑戰極限了嗎？`;
+      modalTitle.textContent = "防線失守 GAME OVER";
+      modalDesc.innerHTML = `最終得分：<strong style="color:#00f3ff; font-size: 24px;">${score}</strong> 分<br>字母速度已提升至極限，再來一局挑戰吧！`;
       btnStart.textContent = "再次挑戰";
       modalOverlay.classList.remove('hidden');
     }
