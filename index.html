@@ -1,821 +1,699 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鍵字風暴 KeyStorm - Extreme Cyberpunk Edition</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'cyber-black': '#030108',
-                        'cyber-card': 'rgba(12, 8, 28, 0.88)',
-                        'neon-cyan': '#00f3ff',
-                        'neon-magenta': '#ff00ff',
-                        'neon-violet': '#b026ff',
-                        'neon-yellow': '#ffe600',
-                        'danger-red': '#ff0055',
-                        'apex-gold': '#ffaa00'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Custom Synthwave & Ultra Neon Styles -->
-    <style>
-        body {
-            background-color: #030108;
-            color: #f1f5f9;
-            user-select: none;
-            overflow: hidden;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鍵字風暴 KeyStorm - 極速指尖戰防陣線</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
 
-        /* Animated Retro Synthwave Grid Floor */
-        .synth-grid-container {
-            position: absolute;
-            inset: 0;
-            perspective: 600px;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 1;
-        }
+    body {
+      background-color: #03030c;
+      color: #ffffff;
+      font-family: 'Noto Sans TC', 'Orbitron', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-        .synth-grid {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            left: -50%;
-            top: -20%;
-            background-image: 
-                linear-gradient(to right, rgba(0, 243, 255, 0.25) 2px, transparent 2px),
-                linear-gradient(to bottom, rgba(255, 0, 255, 0.25) 2px, transparent 2px);
-            background-size: 50px 50px;
-            transform: rotateX(72deg);
-            animation: gridMove 1.8s linear infinite;
-            transform-origin: center center;
-        }
+    /* 賽博朋克背景風格 */
+    .bg-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(180deg, rgba(3, 3, 12, 0.9) 0%, rgba(12, 5, 29, 0.7) 60%, rgba(255, 0, 128, 0.15) 100%),
+        radial-gradient(circle at 50% 30%, rgba(0, 243, 255, 0.12) 0%, transparent 70%);
+      z-index: 1;
+    }
 
-        @keyframes gridMove {
-            0% { transform: rotateX(72deg) translateY(0); }
-            100% { transform: rotateX(72deg) translateY(50px); }
-        }
+    .synth-grid {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 45vh;
+      left: -50%;
+      background-image: 
+        linear-gradient(to right, rgba(0, 243, 255, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 0, 127, 0.3) 1px, transparent 1px);
+      background-size: 50px 30px;
+      transform: perspective(300px) rotateX(60deg);
+      animation: gridMove 2s linear infinite;
+      z-index: 1;
+      mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    }
 
-        /* Neon Horizon Line */
-        .horizon-glow {
-            position: absolute;
-            top: 22%;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff00ff 20%, #00f3ff 50%, #ff00ff 80%, transparent);
-            box-shadow: 0 0 25px #00f3ff, 0 0 50px #ff00ff;
-            z-index: 2;
-        }
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 30px; }
+    }
 
-        /* Glowing Neon Typography & Containers */
-        .glow-title {
-            text-shadow: 
-                0 0 8px #00f3ff,
-                0 0 20px #00f3ff,
-                0 0 35px #ff00ff,
-                0 0 60px #ff00ff,
-                0 0 80px #b026ff;
-        }
+    /* 主容器 */
+    .game-container {
+      position: relative;
+      width: 95vw;
+      max-width: 1100px;
+      height: 88vh;
+      max-height: 820px;
+      background: rgba(8, 10, 26, 0.75);
+      border: 2px solid rgba(0, 243, 255, 0.4);
+      border-radius: 16px;
+      box-shadow: 
+        0 0 30px rgba(0, 243, 255, 0.25),
+        inset 0 0 25px rgba(255, 0, 127, 0.15);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      overflow: hidden;
+    }
 
-        .glow-subtext {
-            text-shadow: 0 0 8px rgba(0, 243, 255, 0.8), 0 0 15px rgba(255, 0, 255, 0.6);
-        }
+    /* 頂部標題與狀態列 */
+    .header-bar {
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(4, 6, 18, 0.85);
+      border-bottom: 2px solid rgba(0, 243, 255, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 20;
+    }
 
-        .glow-box-cyber {
-            box-shadow: 
-                0 0 35px rgba(0, 243, 255, 0.35), 
-                inset 0 0 25px rgba(255, 0, 255, 0.2),
-                0 0 65px rgba(176, 38, 255, 0.25);
-            border: 1px solid rgba(0, 243, 255, 0.5);
-            backdrop-filter: blur(20px);
-        }
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .glow-box-card {
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.85), 
-                0 0 35px rgba(255, 0, 255, 0.4),
-                inset 0 0 20px rgba(0, 243, 255, 0.2);
-            border: 1px solid rgba(255, 0, 255, 0.5);
-            backdrop-filter: blur(20px);
-        }
+    .brand-title h1 {
+      font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #00f3ff, #ff007f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+    }
 
-        .defense-line {
-            background: linear-gradient(90deg, transparent 0%, #00f3ff 20%, #ff00ff 50%, #00f3ff 80%, transparent 100%);
-            box-shadow: 0 0 25px #00f3ff, 0 0 50px #ff00ff, 0 0 75px #b026ff;
-        }
+    .brand-title p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
 
-        .defense-line.flash-red {
-            background: linear-gradient(90deg, transparent 0%, #ff0055 20%, #ffe600 50%, #ff0055 80%, transparent 100%);
-            box-shadow: 0 0 45px #ff0055, 0 0 80px #ffe600;
-        }
+    /* 數據儀表板 */
+    .stats-board {
+      display: flex;
+      gap: 36px;
+    }
 
-        /* Bottom Turret Cannon */
-        .turret-cannon {
-            width: 0;
-            height: 0;
-            border-left: 28px solid transparent;
-            border-right: 28px solid transparent;
-            border-bottom: 50px solid #00f3ff;
-            filter: drop-shadow(0px 0px 20px #00f3ff) drop-shadow(0px 0px 40px #ff00ff);
-            position: relative;
-        }
+    .stat-item {
+      text-align: center;
+    }
 
-        .turret-inner {
-            position: absolute;
-            top: 18px;
-            left: -11px;
-            width: 0;
-            height: 0;
-            border-left: 11px solid transparent;
-            border-right: 11px solid transparent;
-            border-bottom: 22px solid #ff00ff;
-        }
+    .stat-label {
+      font-size: 11px;
+      color: #00f3ff;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+      text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+    }
 
-        /* Neon Buttons State */
-        .btn-neon-active {
-            background: rgba(0, 243, 255, 0.25);
-            border-color: #00f3ff;
-            color: #00f3ff;
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8), inset 0 0 12px rgba(0, 243, 255, 0.6);
-            text-shadow: 0 0 10px #00f3ff;
-        }
+    .stat-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
 
-        .btn-neon-apex-active {
-            background: rgba(255, 170, 0, 0.25);
-            border-color: #ffaa00;
-            color: #ffaa00;
-            box-shadow: 0 0 25px rgba(255, 170, 0, 0.8), inset 0 0 12px rgba(255, 170, 0, 0.6);
-            text-shadow: 0 0 10px #ffaa00;
-        }
+    .stat-value.danger {
+      color: #ff0055;
+      text-shadow: 0 0 12px rgba(255, 0, 85, 0.9);
+      animation: pulseDanger 1s infinite alternate;
+    }
 
-        .btn-neon-inactive {
-            background: rgba(18, 14, 38, 0.75);
-            border-color: rgba(255, 0, 255, 0.35);
-            color: #94a3b8;
-        }
+    @keyframes pulseDanger {
+      from { opacity: 0.8; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.08); }
+    }
 
-        .btn-neon-inactive:hover {
-            border-color: #ff00ff;
-            color: #ff00ff;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-        }
+    /* 遊戲畫布 */
+    .canvas-wrapper {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
 
-        /* Scanline CRT FX */
-        .scanline {
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0) 50%,
-                rgba(0, 0, 0, 0.35) 50%,
-                rgba(0, 0, 0, 0.35)
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-    </style>
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 彈窗 UI overlay */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 4, 12, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .modal-card {
+      width: 420px;
+      background: rgba(12, 16, 38, 0.92);
+      border: 2px solid #00f3ff;
+      border-radius: 20px;
+      padding: 36px 30px;
+      text-align: center;
+      box-shadow: 
+        0 0 40px rgba(0, 243, 255, 0.4),
+        inset 0 0 20px rgba(255, 0, 127, 0.2);
+      animation: modalSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-card h2 {
+      font-size: 26px;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 12px rgba(0, 243, 255, 0.8);
+    }
+
+    .modal-card p.subtitle {
+      font-size: 14px;
+      color: #00f3ff;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .btn-start {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      background: linear-gradient(90deg, #00f3ff, #ff007f);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+    }
+
+    .btn-start:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 35px rgba(0, 243, 255, 0.8);
+    }
+
+    .btn-start:active {
+      transform: translateY(1px);
+    }
+
+    /* 頁腳提示 */
+    .footer-tip {
+      position: absolute;
+      bottom: 12px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 1px;
+      z-index: 15;
+      pointer-events: none;
+    }
+  </style>
 </head>
-<body class="h-screen w-screen flex flex-col justify-between items-center bg-cyber-black relative overflow-hidden">
+<body>
 
-    <!-- Retro Horizon Grid Background -->
-    <div class="synth-grid-container">
-        <div class="synth-grid"></div>
+  <div class="bg-grid"></div>
+  <div class="synth-grid"></div>
+
+  <div class="game-container">
+    <!-- 頂部資訊欄 -->
+    <div class="header-bar">
+      <div class="brand-title">
+        <h1>鍵字風暴 KEYSTORM</h1>
+        <p>看見字母，立即擊鍵，守住你的防線。</p>
+      </div>
+      <div class="stats-board">
+        <div class="stat-item">
+          <div class="stat-label">分數</div>
+          <div class="stat-value" id="score-val">0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">掉落累積</div>
+          <div class="stat-value" id="miss-val">0 / 10</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">最高紀錄</div>
+          <div class="stat-value" id="high-val">0</div>
+        </div>
+      </div>
     </div>
-    <div class="horizon-glow"></div>
 
-    <!-- Retro CRT Scanline Layer -->
-    <div class="absolute inset-0 scanline z-30 pointer-events-none opacity-40"></div>
+    <!-- 主遊戲畫面 -->
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas"></canvas>
+    </div>
 
-    <!-- Top Dashboard Header -->
-    <header class="w-full max-w-6xl px-6 pt-5 flex justify-between items-start z-10">
-        <div>
-            <div class="flex items-baseline gap-3">
-                <span class="text-xs px-2.5 py-0.5 rounded bg-cyan-500/20 border border-cyan-400 text-neon-cyan font-mono font-bold tracking-widest uppercase shadow-[0_0_12px_rgba(0,243,255,0.5)]">HIGH-SPEED TYPING DEFENSE</span>
-                <h1 class="text-4xl font-black text-white tracking-wider glow-title uppercase">鍵字風暴 <span class="text-2xl font-light text-cyan-300 ml-1">KeyStorm</span></h1>
-            </div>
-            <p class="text-xs text-cyan-200/90 mt-1.5 tracking-wide glow-subtext">極速指尖戰防陣線 — 高速反應防衛，捍衛霓虹基地。</p>
-        </div>
-        <div class="text-right flex flex-col items-end">
-            <span class="text-xs text-pink-400 font-mono tracking-wider glow-subtext">HARDCORE EDITION</span>
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping mt-1.5 shadow-[0_0_12px_#00f3ff]"></span>
-        </div>
-    </header>
+    <div class="footer-tip">
+      鍵盤直接按 A-Z 鍵即可發射光束清除字母
+    </div>
 
-    <!-- Main Game Canvas Container -->
-    <main class="w-full max-w-5xl flex-1 my-3 flex flex-col items-center justify-start relative z-10">
+    <!-- 開始與重啟 modal 彈窗 -->
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal-card">
+        <h2 id="modal-title">鍵字風暴挑戰</h2>
+        <p class="subtitle" id="modal-desc">
+          輸入與掉落字母相同的按鍵。<br>隨得分越高，掉落速度與數量會持續加快！
+        </p>
+
+        <button class="btn-start" id="btn-start">開始遊戲</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- 音效合成器 (Web Audio API) ---
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      }
+
+      playShoot() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, this.ctx.currentTime + 0.12);
         
-        <!-- Scoreboard Stats Header -->
-        <div class="w-full grid grid-cols-4 bg-cyber-card glow-box-card rounded-2xl py-3.5 px-4 text-center mb-3 divide-x divide-purple-900/50 border border-pink-500/30">
-            <div>
-                <div class="text-xs text-cyan-300/80 font-medium mb-0.5 tracking-wider">目前分數</div>
-                <div id="scoreDisplay" class="text-3xl font-black text-neon-cyan font-mono drop-shadow-[0_0_12px_#00f3ff]">0</div>
-            </div>
-            <div>
-                <div class="text-xs text-pink-300/80 font-medium mb-0.5 tracking-wider">作戰難度</div>
-                <div id="diffDisplay" class="text-3xl font-black text-neon-magenta font-mono drop-shadow-[0_0_12px_#ff00ff]">LV.1</div>
-                <div id="diffNameDisplay" class="text-[10px] text-neon-yellow font-bold tracking-wider uppercase drop-shadow-[0_0_6px_#ffe600]">新手模式</div>
-            </div>
-            <div>
-                <div class="text-xs text-amber-300/80 font-medium mb-0.5 tracking-wider">防線掉落</div>
-                <div id="missedDisplay" class="text-3xl font-black text-neon-yellow font-mono drop-shadow-[0_0_12px_#ffe600]">0 / 10</div>
-            </div>
-            <div>
-                <div class="text-xs text-emerald-300/80 font-medium mb-0.5 tracking-wider">最高分紀錄</div>
-                <div id="highScoreDisplay" class="text-3xl font-black text-emerald-400 font-mono drop-shadow-[0_0_12px_#34d399]">0</div>
-            </div>
-        </div>
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
 
-        <!-- Canvas Playing Window -->
-        <div id="gameWindow" class="w-full flex-1 relative rounded-2xl bg-black/80 glow-box-cyber overflow-hidden border border-cyan-400/50">
-            
-            <!-- Canvas -->
-            <canvas id="gameCanvas" class="w-full h-full block"></canvas>
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.12);
+      }
 
-            <!-- Bottom Turret & Defense Line -->
-            <div class="absolute bottom-0 left-0 w-full flex flex-col items-center pointer-events-none z-10">
-                <div id="defenseLine" class="w-full h-2.5 defense-line transition-colors duration-200"></div>
-                <div class="turret-cannon -mt-1">
-                    <div class="turret-inner"></div>
-                </div>
-            </div>
+      playHit() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, this.ctx.currentTime + 0.15);
+        
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
 
-            <!-- Start Modal Overlay -->
-            <div id="modalOverlay" class="absolute inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 z-20">
-                <div class="w-full max-w-xl bg-cyber-card glow-box-card rounded-2xl p-7 text-center border border-pink-500/50">
-                    <div class="inline-block px-3.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-400 text-xs text-neon-cyan font-mono mb-3 shadow-[0_0_12px_rgba(0,243,255,0.4)]">EXTREME TYPING CHALLENGE</div>
-                    <h2 class="text-3xl font-black text-white mb-3 tracking-wide glow-title">選擇作戰難度</h2>
-                    
-                    <p class="text-xs text-cyan-100/80 leading-relaxed mb-5 px-2">
-                        字母將會以極高速度降落！快速按下對應鍵盤 A-Z 進行打擊。重複字母優先瞄準最底部的目標。
-                    </p>
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.15);
+      }
 
-                    <!-- Difficulty Toggle (4 Options) -->
-                    <div class="grid grid-cols-4 gap-2.5 mb-6">
-                        <button id="btnEasy" onclick="setDifficulty('easy')" class="btn-neon-active py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs tracking-wide">新手</span>
-                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 2.2 | 中等</span>
-                        </button>
-                        <button id="btnMedium" onclick="setDifficulty('medium')" class="btn-neon-inactive py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs tracking-wide">進階</span>
-                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 3.5 | 快速</span>
-                        </button>
-                        <button id="btnHard" onclick="setDifficulty('hard')" class="btn-neon-inactive py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs tracking-wide">大師</span>
-                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 5.2 | 極速</span>
-                        </button>
-                        <button id="btnApex" onclick="setDifficulty('apex')" class="btn-neon-inactive py-3 px-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs tracking-wide text-apex-gold">極限風暴</span>
-                            <span class="text-[9px] opacity-80 mt-1 font-mono">速 7.0 | 暴風</span>
-                        </button>
-                    </div>
+      playMiss() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(150, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(80, this.ctx.currentTime + 0.1);
+        
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.25);
 
-                    <!-- Start Button -->
-                    <button id="btnStart" onclick="startGame()" class="w-56 py-3.5 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-violet text-black font-black rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_30px_#00f3ff,0_0_50px_#ff00ff] text-base mb-4 tracking-wider uppercase border border-white/50">
-                        開始遊戲
-                    </button>
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.25);
+      }
+    }
 
-                    <div class="text-[11px] text-pink-200/60 font-mono">
-                        每擊中一個字母得 1 分。累積掉落 10 個字母即結束本局。
-                    </div>
-                </div>
-            </div>
+    const sound = new SoundFX();
 
-            <!-- Game Over Screen with Difficulty Selection on Restart -->
-            <div id="gameOverOverlay" class="hidden absolute inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 z-20">
-                <div class="w-full max-w-xl bg-cyber-card glow-box-card rounded-2xl p-7 text-center border border-pink-500/50">
-                    <div class="text-xs text-danger-red tracking-widest font-mono mb-2 uppercase drop-shadow-[0_0_8px_#ff0055]">DEFENSE LINE BREACHED</div>
-                    <h2 class="text-3xl font-black text-white mb-2 tracking-wide glow-title">防線淪陷 — 遊戲結束</h2>
-                    
-                    <div class="my-5 py-3.5 bg-black/60 rounded-xl border border-purple-500/30 flex justify-around shadow-[inset_0_0_15px_rgba(255,0,255,0.15)]">
-                        <div>
-                            <div class="text-xs text-cyan-300/80 mb-1">本次得分</div>
-                            <div id="finalScore" class="text-3xl font-black text-neon-cyan font-mono drop-shadow-[0_0_12px_#00f3ff]">0</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-emerald-300/80 mb-1">最高得分紀錄</div>
-                            <div id="finalHighScore" class="text-3xl font-black text-emerald-400 font-mono drop-shadow-[0_0_12px_#34d399]">0</div>
-                        </div>
-                    </div>
+    // --- 遊戲邏輯 ---
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
-                    <!-- Select Difficulty for Next Round -->
-                    <div class="text-xs text-neon-cyan font-mono tracking-wider mb-2.5 uppercase drop-shadow-[0_0_5px_#00f3ff]">選擇下一局作戰難度</div>
+    // UI 元素
+    const scoreVal = document.getElementById('score-val');
+    const missVal = document.getElementById('miss-val');
+    const highVal = document.getElementById('high-val');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const btnStart = document.getElementById('btn-start');
 
-                    <div class="grid grid-cols-4 gap-2.5 mb-6">
-                        <button id="btnEasyGameOver" onclick="setDifficulty('easy')" class="btn-neon-active py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs">新手</span>
-                            <span class="text-[9px] opacity-80 font-mono">速 2.2</span>
-                        </button>
-                        <button id="btnMediumGameOver" onclick="setDifficulty('medium')" class="btn-neon-inactive py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs">進階</span>
-                            <span class="text-[9px] opacity-80 font-mono">速 3.5</span>
-                        </button>
-                        <button id="btnHardGameOver" onclick="setDifficulty('hard')" class="btn-neon-inactive py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs">大師</span>
-                            <span class="text-[9px] opacity-80 font-mono">速 5.2</span>
-                        </button>
-                        <button id="btnApexGameOver" onclick="setDifficulty('apex')" class="btn-neon-inactive py-2.5 px-1 rounded-xl border transition-all duration-200 flex flex-col items-center justify-center">
-                            <span class="font-black text-xs text-apex-gold">極限</span>
-                            <span class="text-[9px] opacity-80 font-mono">速 7.0</span>
-                        </button>
-                    </div>
+    // 遊戲數據
+    let score = 0;
+    let misses = 0;
+    let maxMisses = 10;
+    let highScore = localStorage.getItem('keystorm_high') || 0;
+    let isPlaying = false;
+    let animationFrameId = null;
 
-                    <button onclick="startGame()" class="w-56 py-3.5 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-violet text-black font-black rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_30px_#ff00ff,0_0_50px_#00f3ff] text-base tracking-wider uppercase border border-white/50">
-                        重新啟動戰局
-                    </button>
-                </div>
-            </div>
+    highVal.textContent = highScore;
 
-        </div>
-    </main>
+    // 物件陣列
+    let letters = [];
+    let lasers = [];
+    let particles = [];
+    let lastSpawnTime = 0;
 
-    <!-- Footer -->
-    <footer class="w-full text-center py-2.5 text-[11px] text-cyan-300/80 z-10 font-mono tracking-wider glow-subtext">
-        鍵盤按鍵輸入 A-Z 即可發射砲擊 | KEYSTORM EXTREME SYNTHWAVE
-    </footer>
+    // Canvas 自適應大小
+    function resizeCanvas() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-    <!-- Game Engine Script -->
-    <script>
-        // Web Audio Synthesizer for Retro Sound FX
-        class SoundFX {
-            constructor() {
-                this.ctx = null;
-            }
+    // 開始 / 重啟遊戲
+    btnStart.addEventListener('click', () => {
+      sound.init();
+      modalOverlay.classList.add('hidden');
+      resetGame();
+      isPlaying = true;
+      lastSpawnTime = performance.now();
+      requestAnimationFrame(gameLoop);
+    });
 
-            init() {
-                if (!this.ctx) {
-                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-            }
+    function resetGame() {
+      score = 0;
+      misses = 0;
+      letters = [];
+      lasers = [];
+      particles = [];
+      
+      scoreVal.textContent = score;
+      missVal.textContent = `${misses} / ${maxMisses}`;
+      missVal.classList.remove('danger');
+    }
 
-            playShoot() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(200, this.ctx.currentTime + 0.1);
+    // 生成字母（隨分數進行加速度算式）
+    function spawnLetter() {
+      const char = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      const radius = 34; // 放大字母氣泡半徑
+      const padding = 60;
+      const x = padding + Math.random() * (canvas.width - padding * 2);
+      
+      // 動態速度算法：初始基礎 1.8，隨分數不斷無上限加速度
+      const baseSpeed = 1.8;
+      const speedMultiplier = 1 + (score * 0.045); // 每加 1 分增加 4.5% 速度
+      const speed = (baseSpeed + Math.random() * 0.6) * speedMultiplier;
 
-                gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
+      letters.push({
+        char: char,
+        x: x,
+        y: -radius * 2,
+        radius: radius,
+        speed: speed,
+        color: Math.random() > 0.5 ? '#00f3ff' : '#ff007f'
+      });
+    }
 
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
+    // 繪製底座與防護線
+    function drawBase() {
+      const groundY = canvas.height - 40;
+      
+      // 防護線
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(canvas.width, groundY);
+      ctx.strokeStyle = '#00f3ff';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#00f3ff';
+      ctx.shadowBlur = 15;
+      ctx.stroke();
 
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.1);
-            }
+      // 底座三角形
+      const centerX = canvas.width / 2;
+      ctx.beginPath();
+      ctx.moveTo(centerX, groundY - 24);
+      ctx.lineTo(centerX - 24, groundY + 12);
+      ctx.lineTo(centerX + 24, groundY + 12);
+      ctx.closePath();
 
-            playHit() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
+      ctx.fillStyle = '#00f3ff';
+      ctx.shadowColor = '#00f3ff';
+      ctx.shadowBlur = 20;
+      ctx.fill();
 
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(500, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1100, this.ctx.currentTime + 0.08);
+      // 中心核
+      ctx.beginPath();
+      ctx.arc(centerX, groundY - 4, 6, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
 
-                gain.gain.setValueAtTime(0.45, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+      ctx.restore();
+    }
 
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
+    // 鍵盤輸入事件
+    window.addEventListener('keydown', (e) => {
+      if (!isPlaying) return;
 
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.08);
-            }
+      const key = e.key.toUpperCase();
+      if (key >= 'A' && key <= 'Z') {
+        handleKeyPress(key);
+      }
+    });
 
-            playMiss() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
+    function handleKeyPress(key) {
+      // 尋找符合字母且 Y 座標最大（最接近底部）的一個
+      let targetIndex = -1;
+      let maxY = -Infinity;
 
-                osc.type = 'square';
-                osc.frequency.setValueAtTime(240, this.ctx.currentTime);
-                osc.frequency.setValueAtTime(100, this.ctx.currentTime + 0.15);
-
-                gain.gain.setValueAtTime(0.4, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.3);
-            }
+      for (let i = 0; i < letters.length; i++) {
+        if (letters[i].char === key && letters[i].y > maxY) {
+          maxY = letters[i].y;
+          targetIndex = i;
         }
+      }
 
-        const audioFX = new SoundFX();
-
-        // Canvas Setup
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
-        let animationFrameId;
-        let isPlaying = false;
-        let selectedDifficulty = 'easy';
-
-        let score = 0;
-        let missedCount = 0;
-        const maxMissed = 10;
-        let highScore = parseInt(localStorage.getItem('keystorm_high_score') || '0', 10);
-
-        let letters = [];
-        let lasers = [];
-        let particles = [];
-
-        let lastSpawnTime = 0;
-        let spawnInterval = 1000;
-        let baseSpeed = 2.2;
-
-        function resizeCanvas() {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        document.getElementById('highScoreDisplay').innerText = highScore;
-
-        // Difficulty Selector Sync
-        function setDifficulty(diff) {
-            selectedDifficulty = diff;
-
-            const btnEasy = document.getElementById('btnEasy');
-            const btnMedium = document.getElementById('btnMedium');
-            const btnHard = document.getElementById('btnHard');
-            const btnApex = document.getElementById('btnApex');
-
-            const btnEasyGO = document.getElementById('btnEasyGameOver');
-            const btnMediumGO = document.getElementById('btnMediumGameOver');
-            const btnHardGO = document.getElementById('btnHardGameOver');
-            const btnApexGO = document.getElementById('btnApexGameOver');
-
-            const allBtns = [btnEasy, btnMedium, btnHard, btnApex, btnEasyGO, btnMediumGO, btnHardGO, btnApexGO];
-            allBtns.forEach(btn => {
-                if (btn) {
-                    btn.className = btn.className.replace('btn-neon-active', 'btn-neon-inactive').replace('btn-neon-apex-active', 'btn-neon-inactive');
-                }
-            });
-
-            const activate = (b1, b2, isApex = false) => {
-                const cls = isApex ? 'btn-neon-apex-active' : 'btn-neon-active';
-                if (b1) b1.className = b1.className.replace('btn-neon-inactive', cls);
-                if (b2) b2.className = b2.className.replace('btn-neon-inactive', cls);
-            };
-
-            if (diff === 'easy') {
-                activate(btnEasy, btnEasyGO);
-                document.getElementById('diffDisplay').innerText = 'LV.1';
-                document.getElementById('diffNameDisplay').innerText = '新手模式';
-            } else if (diff === 'medium') {
-                activate(btnMedium, btnMediumGO);
-                document.getElementById('diffDisplay').innerText = 'LV.2';
-                document.getElementById('diffNameDisplay').innerText = '進階模式';
-            } else if (diff === 'hard') {
-                activate(btnHard, btnHardGO);
-                document.getElementById('diffDisplay').innerText = 'LV.3';
-                document.getElementById('diffNameDisplay').innerText = '大師模式';
-            } else {
-                activate(btnApex, btnApexGO, true);
-                document.getElementById('diffDisplay').innerText = 'EX.4';
-                document.getElementById('diffNameDisplay').innerText = '極限風暴';
-            }
-        }
-
-        // Enlarged Falling Letter Target Class
-        class Letter {
-            constructor(char, x, speed) {
-                this.char = char;
-                this.x = x;
-                this.y = -40;
-                this.radius = 36; // Large high-contrast circle
-                this.speed = speed;
-                
-                const hues = ['#00f3ff', '#ff00ff', '#ffe600', '#00ff88', '#ffaa00'];
-                this.hue = hues[Math.floor(Math.random() * hues.length)];
-            }
-
-            update() {
-                this.y += this.speed;
-            }
-
-            draw() {
-                ctx.save();
-                
-                // Outer Heavy Glow Aura
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(6, 3, 20, 0.92)';
-                ctx.strokeStyle = this.hue;
-                ctx.lineWidth = 3.5;
-                ctx.shadowColor = this.hue;
-                ctx.shadowBlur = 25;
-                ctx.fill();
-                ctx.stroke();
-
-                // Inner Bright Accent Circle
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius - 6, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-
-                // ENLARGED & HIGH CONTRAST LETTER TEXT
-                ctx.shadowColor = this.hue;
-                ctx.shadowBlur = 12;
-
-                // Black Outlined Border for Maximum Legibility
-                ctx.font = '900 32px JetBrains Mono, Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.strokeStyle = '#000000';
-                ctx.lineWidth = 4.5;
-                ctx.strokeText(this.char, this.x, this.y + 1);
-
-                // Bright Fill Text
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText(this.char, this.x, this.y + 1);
-
-                ctx.restore();
-            }
-        }
-
-        // Laser Beam Class
-        class Laser {
-            constructor(startX, startY, targetX, targetY, targetLetter) {
-                this.startX = startX;
-                this.startY = startY;
-                this.targetX = targetX;
-                this.targetY = targetY;
-                this.targetLetter = targetLetter;
-                this.progress = 0;
-                this.speed = 0.35; // Fast laser shot speed
-            }
-
-            update() {
-                this.progress += this.speed;
-                return this.progress >= 1;
-            }
-
-            draw() {
-                ctx.save();
-                const currentX = this.startX + (this.targetX - this.startX) * Math.min(this.progress, 1);
-                const currentY = this.startY + (this.targetY - this.startY) * Math.min(this.progress, 1);
-
-                // Outer Laser Trail
-                ctx.beginPath();
-                ctx.moveTo(this.startX, this.startY);
-                ctx.lineTo(currentX, currentY);
-                ctx.strokeStyle = '#00f3ff';
-                ctx.lineWidth = 8;
-                ctx.shadowColor = '#ff00ff';
-                ctx.shadowBlur = 30;
-                ctx.stroke();
-
-                // White Core
-                ctx.beginPath();
-                ctx.moveTo(this.startX, this.startY);
-                ctx.lineTo(currentX, currentY);
-                ctx.strokeStyle = '#ffffff';
-                ctx.lineWidth = 3;
-                ctx.stroke();
-
-                // Laser Head Tip
-                ctx.beginPath();
-                ctx.arc(currentX, currentY, 8, 0, Math.PI * 2);
-                ctx.fillStyle = '#ffffff';
-                ctx.shadowColor = '#00f3ff';
-                ctx.shadowBlur = 20;
-                ctx.fill();
-
-                ctx.restore();
-            }
-        }
-
-        // Particle FX
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 14;
-                this.vy = (Math.random() - 0.5) * 14;
-                this.radius = Math.random() * 5 + 2;
-                this.alpha = 1;
-                const colors = ['#00f3ff', '#ff00ff', '#ffe600', '#ffffff', '#ffaa00'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.alpha -= 0.035;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowColor = this.color;
-                ctx.shadowBlur = 16;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        // Spawn Letter with Safe Screen Padding & Speed Variation
-        function spawnLetter() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const char = chars.charAt(Math.floor(Math.random() * chars.length));
-            const padding = 65;
-            const x = Math.random() * (canvas.width - padding * 2) + padding;
-            
-            // Dynamic acceleration based on current score
-            const scoreSpeedBoost = Math.min(score * 0.03, 2.5);
-            let speed = baseSpeed + scoreSpeedBoost + Math.random() * 0.6;
-
-            letters.push(new Letter(char, x, speed));
-        }
-
-        function triggerLineFlash() {
-            const defenseLine = document.getElementById('defenseLine');
-            defenseLine.classList.add('flash-red');
-            setTimeout(() => {
-                defenseLine.classList.remove('flash-red');
-            }, 250);
-        }
-
-        function createExplosion(x, y) {
-            for (let i = 0; i < 30; i++) {
-                particles.push(new Particle(x, y));
-            }
-        }
-
-        // Main Animation Render Loop
-        function gameLoop(timestamp) {
-            if (!isPlaying) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Dynamic Spawn Rate Scaling
-            const currentInterval = Math.max(spawnInterval - Math.floor(score * 8), 180);
-
-            if (timestamp - lastSpawnTime > currentInterval) {
-                spawnLetter();
-                lastSpawnTime = timestamp;
-            }
-
-            // Lasers Loop
-            for (let i = lasers.length - 1; i >= 0; i--) {
-                const laser = lasers[i];
-                const finished = laser.update();
-                laser.draw();
-
-                if (finished) {
-                    createExplosion(laser.targetX, laser.targetY);
-                    audioFX.playHit();
-
-                    const index = letters.indexOf(laser.targetLetter);
-                    if (index !== -1) {
-                        letters.splice(index, 1);
-                    }
-
-                    lasers.splice(i, 1);
-                }
-            }
-
-            // Letters Loop
-            const defenseY = canvas.height - 20;
-            for (let i = letters.length - 1; i >= 0; i--) {
-                const letter = letters[i];
-                letter.update();
-                letter.draw();
-
-                // Defense Line Collision
-                if (letter.y + letter.radius >= defenseY) {
-                    letters.splice(i, 1);
-                    missedCount++;
-                    document.getElementById('missedDisplay').innerText = `${missedCount} / ${maxMissed}`;
-                    triggerLineFlash();
-                    audioFX.playMiss();
-
-                    if (missedCount >= maxMissed) {
-                        endGame();
-                        return;
-                    }
-                }
-            }
-
-            // Particles Loop
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) {
-                    particles.splice(i, 1);
-                }
-            }
-
-            animationFrameId = requestAnimationFrame(gameLoop);
-        }
-
-        // Keyboard Press Handler
-        window.addEventListener('keydown', (e) => {
-            if (!isPlaying) return;
-
-            const key = e.key.toUpperCase();
-            if (key.length !== 1 || key < 'A' || key > 'Z') return;
-
-            // Target lowest matching letter
-            const matchingLetters = letters.filter(l => l.char === key);
-
-            if (matchingLetters.length > 0) {
-                matchingLetters.sort((a, b) => b.y - a.y);
-                const target = matchingLetters[0];
-
-                if (!lasers.some(l => l.targetLetter === target)) {
-                    const turretX = canvas.width / 2;
-                    const turretY = canvas.height - 20;
-
-                    lasers.push(new Laser(turretX, turretY, target.x, target.y, target));
-                    audioFX.playShoot();
-
-                    score++;
-                    document.getElementById('scoreDisplay').innerText = score;
-                }
-            }
+      if (targetIndex !== -1) {
+        const target = letters[targetIndex];
+        
+        // 建立雷射
+        const cannonX = canvas.width / 2;
+        const cannonY = canvas.height - 64;
+        lasers.push({
+          x1: cannonX,
+          y1: cannonY,
+          x2: target.x,
+          y2: target.y,
+          alpha: 1,
+          color: target.color
         });
 
-        // Start & End Game Controls
-        function startGame() {
-            audioFX.init();
+        // 建立爆炸粒子
+        createExplosion(target.x, target.y, target.color);
 
-            // High Difficulty Baseline Tuning
-            if (selectedDifficulty === 'easy') {
-                spawnInterval = 1000;
-                baseSpeed = 2.2;
-            } else if (selectedDifficulty === 'medium') {
-                spawnInterval = 600;
-                baseSpeed = 3.5;
-            } else if (selectedDifficulty === 'hard') {
-                spawnInterval = 380;
-                baseSpeed = 5.2;
-            } else {
-                // APEX / EXTREME MODE
-                spawnInterval = 220;
-                baseSpeed = 7.0;
-            }
+        // 移除字母並加分
+        letters.splice(targetIndex, 1);
+        score += 1;
+        scoreVal.textContent = score;
 
-            score = 0;
-            missedCount = 0;
-            letters = [];
-            lasers = [];
-            particles = [];
-            lastSpawnTime = performance.now();
+        sound.playHit();
+        sound.playShoot();
+      }
+    }
 
-            document.getElementById('scoreDisplay').innerText = '0';
-            document.getElementById('missedDisplay').innerText = `0 / ${maxMissed}`;
+    // 建立爆炸效果
+    function createExplosion(x, y, color) {
+      const count = 16;
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 / count) * i + Math.random();
+        const speed = 2 + Math.random() * 5;
+        particles.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: 2 + Math.random() * 3,
+          alpha: 1,
+          color: color
+        });
+      }
+    }
 
-            document.getElementById('modalOverlay').classList.add('hidden');
-            document.getElementById('gameOverOverlay').classList.add('hidden');
+    // 主更新與繪製循環
+    function gameLoop(timestamp) {
+      if (!isPlaying) return;
 
-            isPlaying = true;
-            animationFrameId = requestAnimationFrame(gameLoop);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 動態生成字母邏輯（分數越高，產生間隔越短、字母越多）
+      const baseInterval = 1100;
+      const currentInterval = Math.max(160, baseInterval - (score * 18)); // 最快縮短至 160ms 出現一顆
+
+      if (timestamp - lastSpawnTime > currentInterval) {
+        spawnLetter();
+        lastSpawnTime = timestamp;
+      }
+
+      // 1. 更新與繪製字母
+      const groundY = canvas.height - 40;
+      for (let i = letters.length - 1; i >= 0; i--) {
+        const item = letters[i];
+        item.y += item.speed;
+
+        // 檢查是否觸底（過線漏接）
+        if (item.y + item.radius >= groundY) {
+          misses++;
+          missVal.textContent = `${misses} / ${maxMisses}`;
+          if (misses >= 7) missVal.classList.add('danger');
+
+          sound.playMiss();
+          createExplosion(item.x, groundY, '#ff0055');
+          letters.splice(i, 1);
+
+          if (misses >= maxMisses) {
+            gameOver();
+            return;
+          }
+          continue;
         }
 
-        function endGame() {
-            isPlaying = false;
-            cancelAnimationFrame(animationFrameId);
+        // 繪製字母氣泡
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(10, 14, 35, 0.85)';
+        ctx.strokeStyle = item.color;
+        ctx.lineWidth = 3;
+        ctx.shadowColor = item.color;
+        ctx.shadowBlur = 18;
+        ctx.fill();
+        ctx.stroke();
 
-            if (score > highScore) {
-                highScore = score;
-                localStorage.setItem('keystorm_high_score', highScore.toString());
-                document.getElementById('highScoreDisplay').innerText = highScore;
-            }
+        // 繪製字母文字 (大字體 32px)
+        ctx.font = '900 32px "Orbitron", sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = item.color;
+        ctx.shadowBlur = 10;
+        ctx.fillText(item.char, item.x, item.y + 2);
+        ctx.restore();
+      }
 
-            document.getElementById('finalScore').innerText = score;
-            document.getElementById('finalHighScore').innerText = highScore;
+      // 2. 繪製雷射光束
+      for (let i = lasers.length - 1; i >= 0; i--) {
+        const l = lasers[i];
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(l.x1, l.y1);
+        ctx.lineTo(l.x2, l.y2);
+        ctx.strokeStyle = l.color;
+        ctx.globalAlpha = l.alpha;
+        ctx.lineWidth = 4;
+        ctx.shadowColor = l.color;
+        ctx.shadowBlur = 15;
+        ctx.stroke();
+        ctx.restore();
 
-            setDifficulty(selectedDifficulty);
+        l.alpha -= 0.12;
+        if (l.alpha <= 0) lasers.splice(i, 1);
+      }
 
-            document.getElementById('gameOverOverlay').classList.remove('hidden');
+      // 3. 繪製爆炸粒子
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.03;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          continue;
         }
-    </script>
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 4. 繪製底座
+      drawBase();
+
+      animationFrameId = requestAnimationFrame(gameLoop);
+    }
+
+    // 遊戲結束
+    function gameOver() {
+      isPlaying = false;
+      cancelAnimationFrame(animationFrameId);
+
+      // 更新最高分數
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('keystorm_high', highScore);
+        highVal.textContent = highScore;
+      }
+
+      // 跳出重開畫面
+      modalTitle.textContent = "戰局結束 GAME OVER";
+      modalDesc.innerHTML = `最終得分：<strong style="color:#00f3ff; font-size: 22px;">${score}</strong> 分<br>準備好再次挑戰極限了嗎？`;
+      btnStart.textContent = "再次挑戰";
+      modalOverlay.classList.remove('hidden');
+    }
+  </script>
 </body>
 </html>
