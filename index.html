@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>鍵字風暴 KeyStorm - 極速指尖戰防陣線</title>
+  <title>鍵字風暴 KeyStorm</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
@@ -185,23 +185,23 @@
     }
 
     .zh-input {
-      width: 240px;
+      width: 260px;
       padding: 10px 16px;
       font-size: 20px;
       font-weight: bold;
       text-align: center;
       color: #ffffff;
       background: rgba(10, 15, 35, 0.85);
-      border: 2px solid #00f3ff;
+      border: 2px solid #ff007f;
       border-radius: 25px;
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5), inset 0 0 10px rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.6), inset 0 0 10px rgba(255, 0, 127, 0.2);
       outline: none;
       font-family: 'Noto Sans TC', sans-serif;
     }
 
     .zh-input:focus {
-      border-color: #ff007f;
-      box-shadow: 0 0 20px rgba(255, 0, 127, 0.7), inset 0 0 10px rgba(255, 0, 127, 0.3);
+      border-color: #00f3ff;
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.8), inset 0 0 10px rgba(0, 243, 255, 0.3);
     }
 
     .input-tip {
@@ -354,7 +354,7 @@
     <div class="header-bar">
       <div class="brand-title">
         <h1>鍵字風暴 KEYSTORM</h1>
-        <p>看見字詞，立即輸入，守住你的防線。</p>
+        <p>看見字詞，選字確定，守住你的防線。</p>
       </div>
       <div class="stats-board">
         <div class="stat-item">
@@ -382,8 +382,8 @@
       
       <!-- 中打專用輸入區域 -->
       <div class="input-zone hidden" id="input-zone">
-        <input type="text" class="zh-input" id="zh-input" placeholder="在此輸入中文..." autocomplete="off">
-        <div class="input-tip">選字完畢自動發射（打完字自動清空）</div>
+        <input type="text" class="zh-input" id="zh-input" placeholder="選字確認後發射..." autocomplete="off">
+        <div class="input-tip">選字完畢或按 Enter 正式送出即發射擊落</div>
       </div>
     </div>
 
@@ -396,7 +396,7 @@
       <div class="modal-card">
         <h2 id="modal-title">選擇打字模式</h2>
         <p class="subtitle" id="modal-desc">
-          選擇您想練習的輸入模式。中打選字自動清除，英打速度循序漸進！
+          選擇您想練習的輸入模式。中打選字確定後射擊並自動清除輸入框！
         </p>
 
         <div class="lang-selector">
@@ -515,7 +515,7 @@
     let maxMisses = 10;
     let highScore = localStorage.getItem('keystorm_high') || 0;
     let isPlaying = false;
-    let isComposing = false; // 是否正在注音/拼音選字組字中
+    let isComposing = false; // 標記是否在注音/拼音組字狀態中
     let animationFrameId = null;
 
     highVal.textContent = highScore;
@@ -552,7 +552,7 @@
 
       if (currentLang === 'zh') {
         inputZone.classList.remove('hidden');
-        footerTip.textContent = "中打模式：使用中文輸入法選字，完成自動擊發並自動清除輸入框";
+        footerTip.textContent = "中打模式：選字確定或按下 Enter 後擊發，並自動清空輸入框";
         setTimeout(() => zhInput.focus(), 100);
       } else {
         inputZone.classList.add('hidden');
@@ -651,41 +651,48 @@
       }
     });
 
-    // --- 中打選字/IME 專用處理邏輯 ---
-    // 1. 開始選字/拼音組字
+    // --- 中打選字/IME 專用流暢處理邏輯 ---
+    // 1. 開始選字/注音組字（下方有虛線）[cite: 5]
     zhInput.addEventListener('compositionstart', () => {
       isComposing = true;
     });
 
-    // 2. 選字完成，字詞正式送出！
+    // 2. 選字結束/按下數字鍵選好字（虛線消失，字正式確定送出）[cite: 5]
     zhInput.addEventListener('compositionend', () => {
       isComposing = false;
-      checkAndClearZhInput();
+      // 延遲微秒確保文字完全填入 value 後進行處理
+      setTimeout(processZhCommit, 10);
     });
 
-    // 3. 一般文字輸入或直接敲入文字時比對
-    zhInput.addEventListener('input', () => {
-      if (!isPlaying || currentLang !== 'zh') return;
-      if (!isComposing) {
-        checkAndClearZhInput();
+    // 3. 按下 Enter 鍵時觸發
+    zhInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        setTimeout(processZhCommit, 10);
       }
     });
 
-    // 核心比對與清空函式
-    function checkAndClearZhInput() {
+    // 處理正式選好的中文字並強制清空輸入框[cite: 5]
+    function processZhCommit() {
+      if (!isPlaying || currentLang !== 'zh') return;
       const val = zhInput.value.trim();
+
       if (val.length > 0) {
-        // 取最後一個選好的中文字進行比對
-        const lastChar = val.charAt(val.length - 1);
-        eliminateTarget(lastChar);
-        // 選字送出後立即自動清空輸入框（無論是否擊中都清空）
+        // 逐字比對選好的文字，有匹配就擊落！
+        for (let i = 0; i < val.length; i++) {
+          const char = val.charAt(i);
+          eliminateTarget(char);
+        }
+
+        // 強制徹底清空輸入框與組字暫存區[cite: 5]
         zhInput.value = '';
+        zhInput.blur();
+        zhInput.focus();
       }
     }
 
-    // 保持輸入框 Focus
-    document.addEventListener('click', () => {
-      if (isPlaying && currentLang === 'zh') {
+    // 保持輸入框 Focus 焦點
+    document.addEventListener('click', (e) => {
+      if (isPlaying && currentLang === 'zh' && e.target !== zhInput) {
         zhInput.focus();
       }
     });
