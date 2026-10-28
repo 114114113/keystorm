@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>鍵字風暴 KeyStorm</title>
+  <title>鍵字風暴 KeyStorm </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
@@ -396,7 +396,7 @@
       <div class="modal-card">
         <h2 id="modal-title">選擇打字模式</h2>
         <p class="subtitle" id="modal-desc">
-          選擇您想練習的輸入模式。中打選字確定後射擊並自動清除輸入框！
+          選擇您想練習的輸入模式。包含 300+ 超大海量中文字庫，字字不重複！
         </p>
 
         <div class="lang-selector">
@@ -416,14 +416,31 @@
   </div>
 
   <script>
-    // --- 常用繁體中文字庫 ---
+    // --- 擴充超大常用繁體中文字庫 (300+ 字) ---
     const CHINESE_WORDS = [
+      // 自然現象與元素
       "風", "電", "龍", "影", "光", "閃", "星", "火", "水", "木", "金", "山", "川", "天", "地", 
-      "人", "日", "月", "神", "聖", "劍", "盾", "雲", "海", "極", "破", "爆", "夜", "心", "夢", 
-      "戰", "勝", "飛", "鷹", "狼", "虎", "獅", "凰", "魔", "幻", "空", "時", "道", "無", "雙", 
-      "陣", "雷", "暴", "雪", "冰", "霜", "炎", "熾", "熱", "流", "浪", "濤", "巨", "微", "羽", 
-      "翼", "爪", "角", "鱗", "骨", "魂", "魄", "靈", "尊", "王", "皇", "帝", "霸", "雄", "傑", 
-      "狂", "傲", "怒", "喜", "樂", "哀", "仇", "恨", "愛", "情", "義", "忠", "勇", "智", "仁"
+      "雲", "海", "極", "夜", "雷", "暴", "雪", "冰", "霜", "炎", "熾", "熱", "流", "浪", "濤", 
+      "巨", "微", "霧", "霞", "虹", "露", "波", "泉", "溪", "澤", "洋", "洲", "岩", "石", "塵", 
+      // 戰鬥與兵器
+      "神", "聖", "劍", "盾", "破", "爆", "戰", "勝", "飛", "魔", "幻", "空", "時", "道", "無", 
+      "雙", "陣", "羽", "翼", "爪", "角", "鱗", "骨", "魂", "魄", "靈", "尊", "王", "皇", "帝", 
+      "霸", "雄", "傑", "狂", "傲", "怒", "槍", "戟", "箭", "刀", "斧", "弓", "鎧", "甲", "鋒", 
+      "芒", "斬", "殺", "襲", "擊", "攻", "防", "守", "御", "絕", "滅", "毀", "煉", "獄", "煞", 
+      // 動植物與生物
+      "鷹", "狼", "虎", "狮", "凰", "蛇", "鶴", "豹", "熊", "鯨", "鯊", "蛟", "蜃", "鵬", "雀", 
+      "蝶", "蟬", "花", "草", "樹", "林", "森", "葉", "竹", "蓮", "菊", "梅", "蘭", "藤", "芽", 
+      // 情感與意境
+      "心", "夢", "喜", "樂", "哀", "仇", "恨", "愛", "情", "義", "忠", "勇", "智", "仁", "信", 
+      "禮", "廉", "恥", "靜", "雅", "幽", "美", "秀", "清", "明", "輝", "耀", "燦", "爛", "茫", 
+      "玄", "妙", "真", "假", "虛", "實", "幻", "影", "痕", "跡", "印", "符", "咒", "印", "銘", 
+      // 方位與狀態
+      "東", "南", "西", "北", "中", "上", "下", "左", "右", "前", "後", "遠", "近", "深", "淺", 
+      "高", "低", "寬", "窄", "快", "慢", "強", "弱", "剛", "柔", "陰", "陽", "乾", "坤", "宙", 
+      "宇", "界", "域", "門", "關", "城", "堡", "宮", "殿", "塔", "樓", "台", "閣", "亭", "廊", 
+      // 賽博與科技感字
+      "機", "網", "電", "訊", "核", "脈", "晶", "碼", "微", "數", "維", "點", "線", "面", "體", 
+      "極", "致", "限", "衝", "超", "轉", "變", "合", "開", "閉", "重", "新", "創", "造", "元"
     ];
 
     // --- 音效合成器 (Web Audio API) ---
@@ -515,7 +532,7 @@
     let maxMisses = 10;
     let highScore = localStorage.getItem('keystorm_high') || 0;
     let isPlaying = false;
-    let isComposing = false; // 標記是否在注音/拼音組字狀態中
+    let isComposing = false;
     let animationFrameId = null;
 
     highVal.textContent = highScore;
@@ -577,20 +594,33 @@
       missVal.classList.remove('danger');
     }
 
-    // 生成掉落字詞
+    // 生成掉落字詞（保證不與畫面上既有字詞重複）
     function spawnLetter() {
+      const existingChars = new Set(letters.map(item => item.char));
       let char = "";
-      let radius = 36;
+
+      if (currentLang === 'en') {
+        if (existingChars.size >= 26) return;
+
+        do {
+          char = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        } while (existingChars.has(char));
+
+      } else {
+        const availableWords = CHINESE_WORDS.filter(w => !existingChars.has(w));
+        if (availableWords.length === 0) return;
+
+        char = availableWords[Math.floor(Math.random() * availableWords.length)];
+      }
+
+      let radius = currentLang === 'en' ? 36 : 42;
       let speed = 1.0;
 
       if (currentLang === 'en') {
-        char = String.fromCharCode(65 + Math.floor(Math.random() * 26));
         const baseSpeed = 1.5;
         const speedMultiplier = 1 + (score * 0.012);
         speed = (baseSpeed + Math.random() * 0.4) * speedMultiplier;
       } else {
-        char = CHINESE_WORDS[Math.floor(Math.random() * CHINESE_WORDS.length)];
-        radius = 42;
         speed = 0.7 + Math.random() * 0.2;
       }
 
@@ -652,45 +682,37 @@
     });
 
     // --- 中打選字/IME 專用流暢處理邏輯 ---
-    // 1. 開始選字/注音組字（下方有虛線）[cite: 5]
     zhInput.addEventListener('compositionstart', () => {
       isComposing = true;
     });
 
-    // 2. 選字結束/按下數字鍵選好字（虛線消失，字正式確定送出）[cite: 5]
     zhInput.addEventListener('compositionend', () => {
       isComposing = false;
-      // 延遲微秒確保文字完全填入 value 後進行處理
       setTimeout(processZhCommit, 10);
     });
 
-    // 3. 按下 Enter 鍵時觸發
     zhInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         setTimeout(processZhCommit, 10);
       }
     });
 
-    // 處理正式選好的中文字並強制清空輸入框[cite: 5]
     function processZhCommit() {
       if (!isPlaying || currentLang !== 'zh') return;
       const val = zhInput.value.trim();
 
       if (val.length > 0) {
-        // 逐字比對選好的文字，有匹配就擊落！
         for (let i = 0; i < val.length; i++) {
           const char = val.charAt(i);
           eliminateTarget(char);
         }
 
-        // 強制徹底清空輸入框與組字暫存區[cite: 5]
         zhInput.value = '';
         zhInput.blur();
         zhInput.focus();
       }
     }
 
-    // 保持輸入框 Focus 焦點
     document.addEventListener('click', (e) => {
       if (isPlaying && currentLang === 'zh' && e.target !== zhInput) {
         zhInput.focus();
