@@ -396,17 +396,17 @@
       <div class="modal-card">
         <h2 id="modal-title">選擇打字模式</h2>
         <p class="subtitle" id="modal-desc">
-          選擇您想練習的輸入模式。中打模式速度固定方便選字，英打模式速度會持續加快！
+          選擇您想練習的輸入模式。中打模式速度固定方便選字，英打模式速度會循序漸進加快！
         </p>
 
         <div class="lang-selector">
           <button class="btn-lang active" data-lang="en">
             <span class="lang-title">英打模式</span>
-            <span class="lang-desc">A-Z 英文字母 (極速)</span>
+            <span class="lang-desc">A-Z 英文字母 (漸進)</span>
           </button>
           <button class="btn-lang" data-lang="zh">
             <span class="lang-title">中打模式</span>
-            <span class="lang-desc">常用中文字 (定速)</span>
+            <span class="lang-desc">常用中文字 (慢速)</span>
           </button>
         </div>
 
@@ -551,11 +551,11 @@
 
       if (currentLang === 'zh') {
         inputZone.classList.remove('hidden');
-        footerTip.textContent = "中打模式：使用中文輸入法選字，輸入完成自動擊落目標 (速度固定)";
+        footerTip.textContent = "中打模式：使用中文輸入法選字，輸入完成自動擊落目標 (慢速定速)";
         setTimeout(() => zhInput.focus(), 100);
       } else {
         inputZone.classList.add('hidden');
-        footerTip.textContent = "英打模式：直接按下鍵盤 A-Z 鍵即可發射砲擊 (速度遞增)";
+        footerTip.textContent = "英打模式：直接按下鍵盤 A-Z 鍵即可發射砲擊 (循序漸進加速)";
       }
 
       lastSpawnTime = performance.now();
@@ -584,15 +584,15 @@
 
       if (currentLang === 'en') {
         char = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-        // 英打模式：速度隨分數遞增
-        const baseSpeed = 1.8;
-        const speedMultiplier = 1 + (score * 0.04);
-        speed = (baseSpeed + Math.random() * 0.5) * speedMultiplier;
+        // 英打模式：速度循序漸進微幅平緩遞增 (從 +4% 改為 +1.2%)
+        const baseSpeed = 1.5;
+        const speedMultiplier = 1 + (score * 0.012);
+        speed = (baseSpeed + Math.random() * 0.4) * speedMultiplier;
       } else {
         char = CHINESE_WORDS[Math.floor(Math.random() * CHINESE_WORDS.length)];
-        radius = 40; // 中文字體稍大，增加氣泡尺寸
-        // 中打模式：速度維持恆定舒適速度，不隨分數加速
-        speed = 1.1 + Math.random() * 0.2;
+        radius = 42; // 中文字體稍大，增加氣泡尺寸
+        // 中打模式：調低掉落速度 (0.7 ~ 0.9)，讓選字極度順暢輕鬆
+        speed = 0.7 + Math.random() * 0.2;
       }
 
       const padding = 70;
@@ -754,11 +754,11 @@
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 動態生成間隔 (中打恆定維持 2000ms 生成一顆)
-      let currentInterval = 2000;
+      // 動態生成間隔 (中打拉長至 2500ms 掉落一顆，輕鬆留出選字時間)
+      let currentInterval = 2500;
       if (currentLang === 'en') {
-        const baseInterval = 1100;
-        currentInterval = Math.max(200, baseInterval - (score * 18));
+        const baseInterval = 1200;
+        currentInterval = Math.max(300, baseInterval - (score * 8));
       }
 
       if (timestamp - lastSpawnTime > currentInterval) {
@@ -803,11 +803,11 @@
         ctx.stroke();
 
         // 繪製清晰字體
-        const fontSize = currentLang === 'en' ? '32px' : '28px';
+        const fontSize = currentLang === 'en' ? '32px' : '30px';
         const fontStyle = currentLang === 'en' ? '"Orbitron"' : '"Noto Sans TC"';
         ctx.font = `900 ${fontSize} ${fontStyle}, sans-serif`;
         
-        // 雙重黑邊描邊確保清晰
+        // 雙重黑邊描邊確保字跡清晰
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 5;
         ctx.strokeText(item.char, item.x, item.y + 2);
